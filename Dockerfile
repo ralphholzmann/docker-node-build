@@ -4,11 +4,15 @@
 
 FROM danscan/node
 
-RUN apt-get install -y ruby1.9 rubygems
-RUN gem install foreman
-
-EXPOSE 3000
 ADD . /app
-ADD build /app/app
 WORKDIR /app
-RUN node app.js
+
+RUN npm install \
+  bower install --allow-root \
+  grunt
+
+ENV NODE_ENV production
+ENV PORT 4000
+EXPOSE 4000
+
+CMD node app.js
