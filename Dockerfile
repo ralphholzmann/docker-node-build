@@ -7,8 +7,10 @@ FROM danscan/node
 ADD . /app
 WORKDIR /app
 
-RUN npm install \
-  bower install --allow-root \
+RUN apt-get install -y git && \
+  npm install -g bower grunt-cli && \
+  npm install && \
+  bower install --allow-root && \
   grunt
 
 ENV NODE_ENV production
